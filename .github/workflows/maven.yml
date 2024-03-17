@@ -34,7 +34,7 @@ jobs:
           mvn versions:set -DnewVersion=${{ github.ref }}
           mvn clean install
           pwd
-          zip --junk-paths release-${{ steps.get_tag.outputs.tag }} ./target/*/tags/*jar-with-dependencies.jar
+          zip --junk-paths release-${{ steps.get_tag.outputs.tag }}.zip ./target/*/tags/*jar-with-dependencies.jar
           find .
 
       - name: Create Release
