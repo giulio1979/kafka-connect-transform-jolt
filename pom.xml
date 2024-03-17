@@ -81,5 +81,12 @@
         </plugins>
     </build>
 
+   <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/giulio1979/kafka-connect-transform-jolt</url>
+    </repository>
+  </distributionManagement>
 
 </project>
