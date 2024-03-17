@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   build:
@@ -23,7 +23,12 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Build with Maven
-        run: mvn clean install
+        run: |
+          # Clean and install your Maven project
+          mvn versions:set -DnewVersion=${{ github.ref }}
+          mvn clean install
+          pwd
+          find .
 
       - name: Create Release
         id: create_release
@@ -45,6 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./**/target/*.jar
-          asset_name: my-app-${{ github.ref }}.jar
+          asset_path: ./target/*.jar
+          asset_name: kafka-connect-json-jolt-${{ github.ref }}.jar
           asset_content_type: application/java-archive
